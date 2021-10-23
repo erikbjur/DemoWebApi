@@ -35,5 +35,13 @@ namespace DemoWebApi.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("Test")]
+        public ActionResult TestThisThing()
+        {
+            return Ok("Hey It works");
+        }
+
+
     }
 }
