@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
+using ObjectLibrary;
 
 namespace DemoWebApi.Models
 {
-    public class Company
+    public class Company : ICompany
     {
         public String Name { get; set; }
 
-        public List<Employee> EmployeeList = new List<Employee>();
+        public List<IEmployee> EmployeeList { get; }
 
         public Company()
         {
-
+            this.EmployeeList = new List<IEmployee>();
         }
     }
 }
