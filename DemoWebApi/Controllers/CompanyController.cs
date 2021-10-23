@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DemoWebApi.Models;
 using System.Text;
+using System.Net.Http;
+using System.Net;
 
 namespace DemoWebApi.Controllers
 {
@@ -44,6 +46,35 @@ namespace DemoWebApi.Controllers
                 results.AppendLine("Name: " + objEmployee.Name + " Age: " + objEmployee.Age.ToString() );
             }
             return Ok(results.ToString());
+        }
+
+        [HttpPost]
+        public async Task<HttpResponseMessage> Post([FromBody] Employee newEmployee)
+        {
+            HttpResponseMessage returnMessage;
+
+            try
+            {
+                //Create a new employee
+                Employee objEmployee = new();
+                objEmployee.Name = newEmployee.Name;
+                objEmployee.Age = newEmployee.Age;
+
+                //Now add it to the company list
+                this.CompanyData.EmployeeList.Add(objEmployee);
+
+                String message = "Employee Created";
+                returnMessage = new HttpResponseMessage(HttpStatusCode.Created);
+                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Post, message);
+            }
+            catch (Exception ex)
+            {
+                returnMessage = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
+                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Post, ex.ToString());
+            }
+
+            return await Task.FromResult(returnMessage);
+
         }
     }
 }

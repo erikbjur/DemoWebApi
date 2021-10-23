@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DemoWebApi
+namespace DemoWebApi.Models
 {
     public class Company
     {
