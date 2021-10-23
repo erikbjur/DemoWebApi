@@ -7,7 +7,9 @@ namespace DemoClientApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Creating the HTTP Client");
+
+            //Create the Http Client
             HttpClient client = new();
 
         }
