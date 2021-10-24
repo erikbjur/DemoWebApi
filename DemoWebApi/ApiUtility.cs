@@ -12,9 +12,9 @@ namespace ApiUtility
             //Create new XDocument to load project data into
             XmlDocument dataFile = new();
             //Create the root node in the file
-            XElement objRoot = new XElement ("LoadPathFile");
+            XElement objRoot = new XElement ("Results");
             //Holds the group object that is being worked on
-            XElement objGroup;
+            //XElement objGroup;
 
 
 
