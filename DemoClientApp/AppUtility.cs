@@ -9,7 +9,8 @@ namespace DemoClientApp
         public static XDocument CreateXmlFromCompany( AppCompany objCompany )
         {
             //Create new XDocument to load project data into
-            XDocument dataFile = new();
+            XDocument dataFile = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"));
             //Create the root node in the file
             XElement objRoot = new XElement( "CompanyData" );
 
