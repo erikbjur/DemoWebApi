@@ -1,15 +1,15 @@
 using System;
 using ObjectLibrary;
 
-namespace DemoClientApp.Models
+namespace DemoWebApi.Models
 {
-    public class Employee : IEmployee
+    public class ApiEmployee : IEmployee
     {
         public String Name { get; set; }
 
         public int Age { get; set; }
 
-        public Employee()
+        public ApiEmployee()
         {
 
         }

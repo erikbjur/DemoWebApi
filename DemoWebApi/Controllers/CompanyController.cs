@@ -15,13 +15,13 @@ namespace DemoWebApi.Controllers
     [Route("[controller]")]
     public class CompanyController : ControllerBase
     {
-        private Company CompanyData = new Company();
+        private ApiCompany CompanyData = new ApiCompany();
 
         //Create data for this company
         private void CreateCompanyDate()
         {
             //Create a new employee
-            Employee objEmployee = new();
+            ApiEmployee objEmployee = new();
             objEmployee.Name = "Erik";
             objEmployee.Age = 44;
             //Add it to the company
@@ -41,7 +41,7 @@ namespace DemoWebApi.Controllers
             CreateCompanyDate();
             
             StringBuilder results = new();
-            foreach( Employee objEmployee in this.CompanyData.EmployeeList )
+            foreach( ApiEmployee objEmployee in this.CompanyData.EmployeeList )
             {
                 results.AppendLine("Name: " + objEmployee.Name + " Age: " + objEmployee.Age.ToString() );
             }
@@ -49,14 +49,14 @@ namespace DemoWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Post([FromBody] Employee newEmployee)
+        public async Task<HttpResponseMessage> Post([FromBody] ApiEmployee newEmployee)
         {
             HttpResponseMessage returnMessage;
 
             try
             {
                 //Create a new employee
-                Employee objEmployee = new();
+                ApiEmployee objEmployee = new();
                 objEmployee.Name = newEmployee.Name;
                 objEmployee.Age = newEmployee.Age;
 

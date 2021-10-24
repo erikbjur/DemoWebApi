@@ -6,18 +6,18 @@ namespace DemoClientApp
 {
     public static class AppUtility
     {
-        public static XDocument CreateXmlFromCompany(Company objCompany)
+        public static XDocument CreateXmlFromCompany( AppCompany objCompany )
         {
             //Create new XDocument to load project data into
             XDocument dataFile = new();
             //Create the root node in the file
-            XElement objRoot = new XElement ("CompanyData");
+            XElement objRoot = new XElement( "CompanyData" );
 
             //Add the company
             XElement objGroup = new XElement( "Company",
                 new XElement( "Name", objCompany.Name ));
-            XElement objEmployeeGroup = new XElement("Employees");
-            foreach( Employee objEmployee in objCompany.EmployeeList )
+            XElement objEmployeeGroup = new XElement( "EmployeeList" );
+            foreach( AppEmployee objEmployee in objCompany.EmployeeList )
             {
                 XElement objEmployeeElement = new XElement( "Employee",
                     new XElement( "Name", objEmployee.Name ),
@@ -25,7 +25,7 @@ namespace DemoClientApp
                 objEmployeeGroup.Add( objEmployeeElement );
             }
 
-            objGroup.Add(objEmployeeGroup);
+            objGroup.Add( objEmployeeGroup );
 
             //Add the Group the the root
             objRoot.Add( objGroup );

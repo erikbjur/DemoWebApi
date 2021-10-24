@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using ObjectLibrary;
 
-namespace DemoWebApi.Models
+namespace DemoClientApp.Models
 {
-    public class Company : ICompany
+    public class AppCompany : ICompany
     {
         public String Name { get; set; }
 
         public List<IEmployee> EmployeeList { get; }
 
-        public Company()
+        public AppCompany()
         {
             this.EmployeeList = new List<IEmployee>();
         }
