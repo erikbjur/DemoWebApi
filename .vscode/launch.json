@@ -2,13 +2,35 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Client App",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "BuildClientApp",
+            "program": "${workspaceFolder}/DemoClientApp/bin/Debug/net5.0/DemoClientApp.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DemoClientApp",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "WebAPI (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "BuildWebApi",
+            "program": "${workspaceFolder}/DemoWebApi/bin/Debug/net5.0/DemoWebApi.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/DemoWebApi",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             // Use IntelliSense to find out which attributes exist for C# debugging
             // Use hover for the description of the existing attributes
             // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
-            "name": ".NET Core Launch (web)",
+            "name": "WebAPI (web)",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "BuildWebApi",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/DemoWebApi/bin/Debug/net5.0/DemoWebApi.dll",
             "args": [],
@@ -30,6 +52,15 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Both Console & Web API",
+            "configurations": [
+                "WebAPI (web)",
+                "Client App"
+            ]
         }
     ]
 }
