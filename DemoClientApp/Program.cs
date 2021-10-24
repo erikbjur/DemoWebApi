@@ -34,7 +34,8 @@ namespace DemoClientApp
             //Create xml file of Company
             XDocument objDocument = new();
             objDocument = AppUtility.CreateXmlFromCompany( CompanyData );
-            Console.WriteLine( "Done" );
+            
+            String xmlData = objDocument.ToString();
 
         }
     }

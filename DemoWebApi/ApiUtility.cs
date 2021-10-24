@@ -16,8 +16,6 @@ namespace ApiUtility
             //Holds the group object that is being worked on
             //XElement objGroup;
 
-
-
             return dataFile;
         }
 
