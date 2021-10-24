@@ -21,11 +21,30 @@ namespace ApiUtility
             return dataFile;
         }
 
-        public static void ReadXmlData()
+        public static ApiCompany ReadXmlData(XDocument objDoc)
         {
-            Company objCompany = new();
+            //Create new company object
+            ApiCompany objCompany = new();
 
-            
+            //Get the company name
+            objCompany.Name = objDoc.Element("CompanyData").Element("Company").Element("Name").Value;
+
+            //Go through the list of employees
+            foreach (XElement objEmployeeElement in objDoc.Element("CompanyData").Element("Company").Element("EmployeeList").Elements("Employee"))
+            {
+                //Create a new employee
+                ApiEmployee objEmployee = new();
+
+                //Set the properties of the employee from the Xml
+                objEmployee.Name = objEmployeeElement.Element("Name").Value;
+                objEmployee.Age = int.Parse(objEmployeeElement.Element("Age").Value);
+                
+                //Add to the project
+                objCompany.EmployeeList.Add(objEmployee);
+            }
+
+            //return Company object
+            return objCompany;
         }
     }
 }
