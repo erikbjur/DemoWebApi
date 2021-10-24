@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Xml.Linq;
 using DemoClientApp.Models;
 
@@ -36,6 +37,11 @@ namespace DemoClientApp
             objDocument = AppUtility.CreateXmlFromCompany( CompanyData );
             
             String xmlData = objDocument.ToString();
+            //StringBuilder objStringBuilder = new StringBuilder();
+
+            
+
+            
 
         }
     }
