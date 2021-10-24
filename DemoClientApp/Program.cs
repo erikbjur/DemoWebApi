@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Xml.Linq;
 using DemoClientApp.Models;
 
 namespace DemoClientApp
@@ -15,6 +16,7 @@ namespace DemoClientApp
 
             //Create a new company object
             Company CompanyData = new Company();
+            CompanyData.Name = "My Company";
 
             //Create a new employee
             Employee objEmployee = new();
@@ -29,10 +31,11 @@ namespace DemoClientApp
             objEmployee.Age = 42;
             CompanyData.EmployeeList.Add(objEmployee);
 
-
+            //Create xml file of Company
+            XDocument objDocument = new();
+            objDocument = AppUtility.CreateXmlFromCompany( CompanyData );
+            Console.WriteLine("Done");
 
         }
-
-        
     }
 }
