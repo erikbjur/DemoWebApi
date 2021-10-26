@@ -11,14 +11,14 @@ namespace DemoClientApp
     {
         static void Main(string[] args)
         {
-        /*    //Try Get Request for data created in the API
+            //Try Get Request for data created in the API
             Console.WriteLine( "Calling Get request" );
             String results = GetEmployees();
+            Console.WriteLine( "Here's what came back from the get request..." );
             Console.WriteLine( results );
-        */
 
             //Now work on the Post Request
-
+            Console.WriteLine( "Now lets do the post request..." );
             //First Create a new company object
             AppCompany CompanyData = new AppCompany();
             CompanyData.Name = "My Company";
@@ -39,16 +39,15 @@ namespace DemoClientApp
             //Create xml file of Company
             XDocument objDocument = new();
             objDocument = AppUtility.CreateXmlFromCompany( CompanyData );
-            
-            //Add the XML header / encoding stuff to the beginning of the file
-            //String xmlData = "<xml version=1.0 encoding=utf-8 standalone=yes>" + objDocument.Document.ToString( SaveOptions.DisableFormatting );
+
+            //Create string from XDocument
             String xmlData = objDocument.Document.ToString( SaveOptions.DisableFormatting );
             Console.WriteLine("Done making XML String");
 
             //Start the post request
-            Console.WriteLine( "Calling the post request" );
+            Console.WriteLine( "Calling the post request..." );
             String result = PostXMLData( xmlData ).Result;
-            Console.WriteLine( "Here's what came back from the API" );
+            Console.WriteLine( "Here's what came back from the API:" );
             Console.WriteLine( result );
             
         }

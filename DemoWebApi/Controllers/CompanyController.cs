@@ -20,7 +20,7 @@ namespace DemoWebApi.Controllers
     {
         private ApiCompany CompanyData = new ApiCompany();
 
-        //Create data for this company
+        //Create sample data for this company
         private void CreateCompanyDate()
         {
             //Create a new employee
@@ -49,15 +49,10 @@ namespace DemoWebApi.Controllers
                 results.AppendLine("Name: " + objEmployee.Name + " Age: " + objEmployee.Age.ToString() );
             }
 
-            //HttpResponseMessage returnResponse = new HttpResponseMessage( HttpStatusCode.OK );
-            //returnResponse.Content = new StringContent( results.ToString(), Encoding.UTF8, "text/plain");
-
             return Ok( results.ToString() );
-
         }
 
         [HttpPost]
-        //public async Task<ActionResult> Post([FromBody] String xmlStringData )
         public async Task<ActionResult> Post()
         {
             string xmlStringData;
@@ -78,8 +73,7 @@ namespace DemoWebApi.Controllers
             //Create xml file of the modified company
             XDocument objModifiedDocument = ApiUtility.CreateXmlResults( objCompany );
             
-            //Add the XML header / encoding stuff to the beginning of the file
-            //String xmlResultsToSendBack = "<xml version=1.0 encoding=utf-8 standalone=yes>" + objModifiedDocument.Document.ToString( SaveOptions.DisableFormatting );
+            //Create string from XDocument
             String xmlResultsToSendBack = objModifiedDocument.Document.ToString( SaveOptions.DisableFormatting );
 
             return Ok( xmlResultsToSendBack );
