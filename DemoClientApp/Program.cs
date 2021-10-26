@@ -12,24 +12,12 @@ namespace DemoClientApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Press any key to start Get Request");
-            Console.ReadKey();
-
             Stopwatch timer = new Stopwatch();
-            
-            //Try Get Request for data created in the API
-            Console.WriteLine( "Calling Get request" );
-            timer.Start();
-            String results = GetEmployees();
-            timer.Stop();
-            Console.WriteLine( "Here's what came back from the get request that took " + timer.ElapsedMilliseconds + "ms" );
-            Console.WriteLine( results );
 
+            //Now work on the Post Request
             Console.WriteLine("Press any key to start Post Request");
             Console.ReadKey();
 
-            //Now work on the Post Request
-            Console.WriteLine( "Now lets do the post request..." );
             //First Create a new company object
             AppCompany CompanyData = new AppCompany();
             CompanyData.Name = "My Company";
@@ -47,22 +35,32 @@ namespace DemoClientApp
             objEmployee.Age = 42;
             CompanyData.EmployeeList.Add( objEmployee );
 
-            //Create xml file of Company
+            //Create xml file of Company.  This takes the place of creating loads of DTO's
             XDocument objDocument = new();
             objDocument = AppUtility.CreateXmlFromCompany( CompanyData );
 
             //Create string from XDocument
             String xmlData = objDocument.Document.ToString( SaveOptions.DisableFormatting );
-            Console.WriteLine("Done making XML String");
 
             //Start the post request
             Console.WriteLine( "Calling the post request..." );
-            timer.Reset();
             timer.Start();
             String result = PostXMLData( xmlData ).Result;
             timer.Stop();
             Console.WriteLine( "Here's what came back from the API.  It took " + timer.ElapsedMilliseconds + "ms" );
             Console.WriteLine( result );
+
+            //Try Get Request for data created in the API
+            Console.WriteLine("Press any key to start Get Request");
+            Console.ReadKey();
+            
+            Console.WriteLine( "Calling Get request" );
+            timer.Reset();
+            timer.Start();
+            String results = GetEmployees();
+            timer.Stop();
+            Console.WriteLine( "Here's what came back from the get request that took " + timer.ElapsedMilliseconds + "ms" );
+            Console.WriteLine( results );
 
             Console.ReadKey();
         }

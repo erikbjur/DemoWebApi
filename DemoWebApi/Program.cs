@@ -11,6 +11,9 @@ namespace DemoWebApi
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+
+            //Create new company data
+            DemoWebApi.Models.ApplicationData.InitializeCompanyData();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

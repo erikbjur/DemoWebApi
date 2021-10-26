@@ -13,7 +13,7 @@ namespace DemoWebApi.Controllers
     [Route("[controller]")]
     public class CompanyController : ControllerBase
     {
-        private ApiCompany CompanyData = new ApiCompany();
+        //private ApiCompany CompanyData = new ApiCompany();
 
         //Create sample data for this company
         private void CreateCompanyData()
@@ -23,23 +23,25 @@ namespace DemoWebApi.Controllers
             objEmployee.Name = "Erik";
             objEmployee.Age = 44;
             //Add it to the company
-            this.CompanyData.EmployeeList.Add(objEmployee);
+            DemoWebApi.Models.ApplicationData.Company.EmployeeList.Add(objEmployee);
+            //this.CompanyData.EmployeeList.Add(objEmployee);
 
             //Create a new employee
             objEmployee = new();
             objEmployee.Name = "Michelle";
             objEmployee.Age = 42;
-            this.CompanyData.EmployeeList.Add(objEmployee);
+            DemoWebApi.Models.ApplicationData.Company.EmployeeList.Add(objEmployee);
+            //this.CompanyData.EmployeeList.Add(objEmployee);
         }
 
         [HttpGet("GetEmployees/Xml")]
         public ActionResult GetEmployees()
         {
             //Create the company data
-            CreateCompanyData();
+            //CreateCompanyData();
             
             StringBuilder results = new();
-            foreach( ApiEmployee objEmployee in this.CompanyData.EmployeeList )
+            foreach( ApiEmployee objEmployee in DemoWebApi.Models.ApplicationData.Company.EmployeeList)
             {
                 results.AppendLine("Name: " + objEmployee.Name + " Age: " + objEmployee.Age.ToString() );
             }
@@ -57,16 +59,16 @@ namespace DemoWebApi.Controllers
             }
 
             //Create a Company object from the xml string
-            ApiCompany objCompany = ApiUtility.CreateCompanyFromXmlString( xmlStringData );
+            DemoWebApi.Models.ApplicationData.Company = ApiUtility.CreateCompanyFromXmlString( xmlStringData );
 
             //Here we double the age of every employee
-            foreach( ApiEmployee objEmployee in objCompany.EmployeeList )
+            foreach( ApiEmployee objEmployee in DemoWebApi.Models.ApplicationData.Company.EmployeeList)
             {
                 objEmployee.Age = objEmployee.Age * 2;
             }
 
             //Create xml file of the modified company
-            XDocument objModifiedDocument = ApiUtility.CreateXmlResults( objCompany );
+            XDocument objModifiedDocument = ApiUtility.CreateXmlResults(DemoWebApi.Models.ApplicationData.Company);
             
             //Create string from XDocument
             String xmlResultsToSendBack = objModifiedDocument.Document.ToString( SaveOptions.DisableFormatting );
