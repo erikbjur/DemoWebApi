@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,21 @@ namespace DemoClientApp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Press any key to start Get Request");
+            Console.ReadKey();
+
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
             //Try Get Request for data created in the API
             Console.WriteLine( "Calling Get request" );
             String results = GetEmployees();
-            Console.WriteLine( "Here's what came back from the get request..." );
+            timer.Stop();
+            Console.WriteLine( "Here's what came back from the get request that took " + timer.ElapsedMilliseconds + "ms" );
             Console.WriteLine( results );
+
+            Console.WriteLine("Press any key to start Post Request");
+            Console.ReadKey();
 
             //Now work on the Post Request
             Console.WriteLine( "Now lets do the post request..." );
@@ -46,10 +57,14 @@ namespace DemoClientApp
 
             //Start the post request
             Console.WriteLine( "Calling the post request..." );
+            timer.Reset();
+            timer.Start();
             String result = PostXMLData( xmlData ).Result;
-            Console.WriteLine( "Here's what came back from the API:" );
+            timer.Stop();
+            Console.WriteLine( "Here's what came back from the API.  It took " + timer.ElapsedMilliseconds + "ms" );
             Console.WriteLine( result );
-            
+
+            Console.ReadKey();
         }
 
         public static String GetEmployees()

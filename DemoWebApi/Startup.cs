@@ -19,8 +19,8 @@ namespace DemoWebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers(); //.AddXmlSerializerFormatters().SetCompatibilityVersion( CompatibilityVersion.Latest );
-            //services.AddMvc().AddXmlSerializerFormatters().SetCompatibilityVersion( CompatibilityVersion.Latest );
+            services.AddControllers();
+
             services.AddHttpClient();
         }
 
