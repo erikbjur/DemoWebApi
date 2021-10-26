@@ -16,7 +16,7 @@ namespace DemoWebApi.Controllers
         private ApiCompany CompanyData = new ApiCompany();
 
         //Create sample data for this company
-        private void CreateCompanyDate()
+        private void CreateCompanyData()
         {
             //Create a new employee
             ApiEmployee objEmployee = new();
@@ -36,7 +36,7 @@ namespace DemoWebApi.Controllers
         public ActionResult GetEmployees()
         {
             //Create the company data
-            CreateCompanyDate();
+            CreateCompanyData();
             
             StringBuilder results = new();
             foreach( ApiEmployee objEmployee in this.CompanyData.EmployeeList )
