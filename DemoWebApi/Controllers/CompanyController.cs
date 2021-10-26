@@ -1,13 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DemoWebApi.Models;
 using System.Text;
-using System.Net.Http;
-using System.Net;
 using System.IO;
 using System.Xml.Linq;
 using DemoWebApi.Utilities;
@@ -37,7 +32,7 @@ namespace DemoWebApi.Controllers
             this.CompanyData.EmployeeList.Add(objEmployee);
         }
 
-        [HttpGet("GetEmployees")]
+        [HttpGet("GetEmployees/Xml")]
         public ActionResult GetEmployees()
         {
             //Create the company data
@@ -52,7 +47,7 @@ namespace DemoWebApi.Controllers
             return Ok( results.ToString() );
         }
 
-        [HttpPost]
+        [HttpPost("XmlPost")]
         public async Task<ActionResult> Post()
         {
             string xmlStringData;

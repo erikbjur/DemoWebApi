@@ -61,7 +61,7 @@ namespace DemoClientApp
                 //Setting the base addresss
                 client.BaseAddress = new Uri("https://localhost:5001/");
                 
-                result = client.GetStringAsync("Company/GetEmployees").Result;
+                result = client.GetStringAsync("Company/GetEmployees/Xml").Result;
             }
 
             return result;
@@ -76,7 +76,7 @@ namespace DemoClientApp
             client.BaseAddress = new Uri("https://localhost:5001/");
 
             StringContent objStringContent = new StringContent( xmlDataString, Encoding.UTF8, "text/plain" );
-            HttpResponseMessage responseMessage = await client.PostAsync( "Company", objStringContent );
+            HttpResponseMessage responseMessage = await client.PostAsync( "Company/XmlPost", objStringContent );
             String result = await responseMessage.Content.ReadAsStringAsync();
 
             client.Dispose();
