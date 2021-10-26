@@ -8,6 +8,9 @@ using DemoWebApi.Models;
 using System.Text;
 using System.Net.Http;
 using System.Net;
+using System.IO;
+using System.Xml.Linq;
+using DemoWebApi.Utilities;
 
 namespace DemoWebApi.Controllers
 {
@@ -45,36 +48,41 @@ namespace DemoWebApi.Controllers
             {
                 results.AppendLine("Name: " + objEmployee.Name + " Age: " + objEmployee.Age.ToString() );
             }
-            return Ok(results.ToString());
+
+            //HttpResponseMessage returnResponse = new HttpResponseMessage( HttpStatusCode.OK );
+            //returnResponse.Content = new StringContent( results.ToString(), Encoding.UTF8, "text/plain");
+
+            return Ok( results.ToString() );
+
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Post([FromBody] ApiEmployee newEmployee)
+        //public async Task<ActionResult> Post([FromBody] String xmlStringData )
+        public async Task<ActionResult> Post()
         {
-            HttpResponseMessage returnMessage;
-
-            try
+            string xmlStringData;
+            using (StreamReader reader = new StreamReader( Request.Body, Encoding.UTF8 ) )
             {
-                //Create a new employee
-                ApiEmployee objEmployee = new();
-                objEmployee.Name = newEmployee.Name;
-                objEmployee.Age = newEmployee.Age;
-
-                //Now add it to the company list
-                this.CompanyData.EmployeeList.Add(objEmployee);
-
-                String message = "Employee Created";
-                returnMessage = new HttpResponseMessage(HttpStatusCode.Created);
-                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Post, message);
-            }
-            catch (Exception ex)
-            {
-                returnMessage = new HttpResponseMessage(HttpStatusCode.ExpectationFailed);
-                returnMessage.RequestMessage = new HttpRequestMessage(HttpMethod.Post, ex.ToString());
+                xmlStringData = await reader.ReadToEndAsync();
             }
 
-            return await Task.FromResult(returnMessage);
+            //Create a Company object from the xml string
+            ApiCompany objCompany = ApiUtility.CreateCompanyFromXmlString( xmlStringData );
 
+            //Here we double the age of every employee
+            foreach( ApiEmployee objEmployee in objCompany.EmployeeList )
+            {
+                objEmployee.Age = objEmployee.Age * 2;
+            }
+
+            //Create xml file of the modified company
+            XDocument objModifiedDocument = ApiUtility.CreateXmlResults( objCompany );
+            
+            //Add the XML header / encoding stuff to the beginning of the file
+            //String xmlResultsToSendBack = "<xml version=1.0 encoding=utf-8 standalone=yes>" + objModifiedDocument.Document.ToString( SaveOptions.DisableFormatting );
+            String xmlResultsToSendBack = objModifiedDocument.Document.ToString( SaveOptions.DisableFormatting );
+
+            return Ok( xmlResultsToSendBack );
         }
     }
 }

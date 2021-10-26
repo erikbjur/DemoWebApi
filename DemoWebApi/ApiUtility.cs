@@ -1,26 +1,48 @@
 using System;
-using System.Xml;
 using System.Xml.Linq;
 using DemoWebApi.Models;
 
-namespace ApiUtility
+namespace DemoWebApi.Utilities
 {
     public static class ApiUtility
     {
-        public static XmlDocument CreateXmlResults()
+        public static XDocument CreateXmlResults( ApiCompany objCompany )
         {
             //Create new XDocument to load project data into
-            XmlDocument dataFile = new();
+            XDocument dataFile = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"));
             //Create the root node in the file
-            XElement objRoot = new XElement ("Results");
-            //Holds the group object that is being worked on
-            //XElement objGroup;
+            XElement objRoot = new XElement( "Results" );
 
+            //Add the company
+            XElement objGroup = new XElement( "Company",
+                new XElement( "Name", objCompany.Name ));
+            XElement objEmployeeGroup = new XElement( "EmployeeList" );
+            foreach( ApiEmployee objEmployee in objCompany.EmployeeList )
+            {
+                XElement objEmployeeElement = new XElement( "Employee",
+                    new XElement( "Name", objEmployee.Name ),
+                    new XElement( "Age", objEmployee.Age ));
+                objEmployeeGroup.Add( objEmployeeElement );
+            }
+
+            objGroup.Add( objEmployeeGroup );
+
+            //Add the Group the the root
+            objRoot.Add( objGroup );
+
+            //Add the Root to the document
+            dataFile.Add( objRoot );
+
+            //Return the XDocument file
             return dataFile;
         }
 
-        public static ApiCompany ReadXmlData(XDocument objDoc)
+        public static ApiCompany CreateCompanyFromXmlString(String xmlStringFile)
         {
+            //Create XDocument from String
+            XDocument objDoc = XDocument.Parse( xmlStringFile );
+
             //Create new company object
             ApiCompany objCompany = new();
 
