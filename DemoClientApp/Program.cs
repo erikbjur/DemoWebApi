@@ -16,10 +16,10 @@ namespace DemoClientApp
             Console.ReadKey();
 
             Stopwatch timer = new Stopwatch();
-            timer.Start();
-
+            
             //Try Get Request for data created in the API
             Console.WriteLine( "Calling Get request" );
+            timer.Start();
             String results = GetEmployees();
             timer.Stop();
             Console.WriteLine( "Here's what came back from the get request that took " + timer.ElapsedMilliseconds + "ms" );
